@@ -1,0 +1,16 @@
+[tool.poetry]
+name = "stockmanagement"
+version = "0.1.0"
+description = ""
+authors = ["Sundar-824 <sundar@broadbil.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+sqlalchemy = "^2.0.36"
+pyqt5 = "5.15.9"
+pyqt5-tools = "5.15.9.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
