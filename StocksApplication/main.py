@@ -205,7 +205,7 @@ class MyApp(QMainWindow):
         delete.setWindowTitle("Delete Stock Group")
 
         warning_text = delete.findChild(QLabel, "DeleteGroupWarningText")
-        warning_text.setText(f"Are you sure to Delete Group belt {row_data[1]}")
+        warning_text.setText(f"Are you sure to Delete Group \n '{row_data[1]}'")
 
         def accept_stock_group_delete():
             data = self.stock_services.get_all_stocks(row_data[0])
