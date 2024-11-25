@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1326</width>
+    <height>901</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="StockGroups">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>160</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stock Groups</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="StocksLabel">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>510</y>
+      <width>161</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Stocks</string>
+    </property>
+   </widget>
+   <widget class="QTableWidget" name="StockGroupTable">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>200</y>
+      <width>1271</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <column>
+     <property name="text">
+      <string>Group Id</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Stock Group Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>All Stocks</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Lower Stocks</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Edit Group</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Delete Group</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QTableWidget" name="StockTable">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>550</y>
+      <width>1271</width>
+      <height>291</height>
+     </rect>
+    </property>
+    <property name="rowCount">
+     <number>0</number>
+    </property>
+    <column>
+     <property name="text">
+      <string>Stock Id</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Stock Name</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Stock Count</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Minimum Stock</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Description</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Order Quantity</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Group</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Edit Stock</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Delete Stock</string>
+     </property>
+    </column>
+   </widget>
+   <widget class="QLabel" name="StockIndicatorLabel">
+    <property name="geometry">
+     <rect>
+      <x>1010</x>
+      <y>510</y>
+      <width>271</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Select Group To Display Stocks</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="HeadingLabel">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>20</y>
+      <width>511</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:20pt; font-weight:600; color:#63452c;&quot;&gt;Stock Management Application&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="LowStocksButton">
+    <property name="geometry">
+     <rect>
+      <x>1170</x>
+      <y>850</y>
+      <width>111</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Low Stocks</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="LowStocksbutton">
+    <property name="geometry">
+     <rect>
+      <x>870</x>
+      <y>860</y>
+      <width>321</width>
+      <height>26</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Click here to get all the low stocks:</string>
+    </property>
+   </widget>
+   <widget class="QGroupBox" name="MoreActions">
+    <property name="geometry">
+     <rect>
+      <x>630</x>
+      <y>120</y>
+      <width>651</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>More Actions</string>
+    </property>
+    <widget class="QCommandLinkButton" name="AddStockMenuButton">
+     <property name="geometry">
+      <rect>
+       <x>420</x>
+       <y>30</y>
+       <width>231</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Add Stocks </string>
+     </property>
+    </widget>
+   </widget>
+   <widget class="QLabel" name="MainWindowWarning">
+    <property name="geometry">
+     <rect>
+      <x>860</x>
+      <y>70</y>
+      <width>391</width>
+      <height>61</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
