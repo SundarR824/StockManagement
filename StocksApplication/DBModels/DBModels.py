@@ -2,15 +2,19 @@
 This File only contains models for
 database table for connection engines.
 """
-
+import sys
 from pathlib import Path
 from sqlalchemy.orm import relationship
 from sqlalchemy.orm import declarative_base
 from sqlalchemy import Column, Integer, String, ForeignKey, create_engine
 
 Base = declarative_base()
-db_path = f"sqlite:///{Path(Path.cwd())}/DBModels/stocks.db"
-# db_path = "sqlite:////home/sundar/Desktop/StockManagement/StocksApplication/DBModels/stocks.db"
+
+base_path = Path(sys._MEIPASS if hasattr(sys, '_MEIPASS') else Path.cwd())
+db_uri = base_path / 'DBModels' / 'stocks.db'
+db_path = f"sqlite:///{db_uri}"
+
+
 engine = create_engine(db_path, echo=False)
 
 class StockGroup(Base):
@@ -46,5 +50,5 @@ class Stocks(Base):
         return f"<Stocks(id='{self.id}', name='{self.stock_name}', description='{self.description}')>"
 
 
-if __name__ == '__main__':
-    Base.metadata.create_all(engine)
+# if __name__ == '__main__':
+Base.metadata.create_all(engine)

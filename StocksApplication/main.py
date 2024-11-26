@@ -16,7 +16,8 @@ class MyApp(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.project_path = f"{Path.cwd()}/ui"
+        base_project_dir = Path(sys._MEIPASS if hasattr(sys, '_MEIPASS') else Path.cwd())
+        self.project_path = base_project_dir / 'ui'
 
         self.stock_group_services = StockGroupServices()
         self.stock_services = StockServices()
@@ -24,7 +25,7 @@ class MyApp(QMainWindow):
         self.load_main_window()
 
     def load_main_window(self):
-        uic.loadUi(f"{self.project_path}/StockManagement.ui", self)
+        uic.loadUi(self.project_path / "StockManagement.ui", self)
 
         stock_operations_button = self.findChild(QCommandLinkButton, "AddStockMenuButton")
         stock_operations_button.clicked.connect(self.add_stock_operations_page)
@@ -139,7 +140,7 @@ class MyApp(QMainWindow):
     def add_stock_operations_page(self):
         # Create a QWidget and load the new .ui file
         stock_operations = QWidget()
-        uic.loadUi(f"{self.project_path}/StockOperations.ui", stock_operations)
+        uic.loadUi(self.project_path / "StockOperations.ui", stock_operations)
 
         # Set the new page as the central widget
         self.setCentralWidget(stock_operations)
@@ -154,6 +155,7 @@ class MyApp(QMainWindow):
         stock_list_page_button.clicked.connect(self.load_main_window)
 
         stock_group_dropdown = self.findChild(QComboBox, "StockGroupBox")
+        stock_group_dropdown.clear()
         all_group_names = self.stock_group_services.get_all_stock_group_names()
         stock_group_dropdown.addItems(all_group_names)
 
@@ -173,11 +175,16 @@ class MyApp(QMainWindow):
             warning_text.setText(created_group['message'])
             warning_text.setStyleSheet("color: Blue")
 
+        stock_group_dropdown = self.findChild(QComboBox, "StockGroupBox")
+        stock_group_dropdown.clear()
+        all_group_names = self.stock_group_services.get_all_stock_group_names()
+        stock_group_dropdown.addItems(all_group_names)
+
     # Update Stock Group
     # ------------------
     def update_stock_group_ui(self, row_data):
         edit = QDialog()
-        uic.loadUi(f"{self.project_path}/EditStockGroup.ui", edit)
+        uic.loadUi(self.project_path / "EditStockGroup.ui", edit)
         edit.setWindowTitle("Edit Stock Group")
 
         name_text = edit.findChild(QLineEdit, "NameText")
@@ -201,7 +208,7 @@ class MyApp(QMainWindow):
     # ------------------
     def delete_stock_group_ui(self, row_data):
         delete = QDialog()
-        uic.loadUi(f"{self.project_path}/DeleteStockGroup.ui", delete)
+        uic.loadUi(self.project_path / "DeleteStockGroup.ui", delete)
         delete.setWindowTitle("Delete Stock Group")
 
         warning_text = delete.findChild(QLabel, "DeleteGroupWarningText")
@@ -230,6 +237,10 @@ class MyApp(QMainWindow):
             warning_text = self.findChild(QLabel, "StockWarningText")
             warning_text.setText("*Stock Name needed 4 or more letters")
             warning_text.setStyleSheet("color: red")
+        elif not stock_group_id:
+            warning_text = self.findChild(QLabel, "StockWarningText")
+            warning_text.setText(f"Please Select a Group to create Stock '{stock_name}'")
+            warning_text.setStyleSheet("color: red")
         else:
             warning_text = self.findChild(QLabel, "StockWarningText")
             stock_args = self.stock_services.StockArgs(
@@ -244,7 +255,7 @@ class MyApp(QMainWindow):
     # ------------
     def update_stock_ui(self, row_data):
         edit = QDialog()
-        uic.loadUi(f"{self.project_path}/EditStock.ui", edit)
+        uic.loadUi(self.project_path / "EditStock.ui", edit)
         edit.setWindowTitle("Edit Stock Group")
 
         name_text = edit.findChild(QLineEdit, "NameText")
@@ -280,7 +291,7 @@ class MyApp(QMainWindow):
     # ------------
     def delete_stock_ui(self, row_data):
         delete = QDialog()
-        uic.loadUi(f"{self.project_path}/DeleteStockGroup.ui", delete)
+        uic.loadUi(self.project_path / "DeleteStockGroup.ui", delete)
         delete.setWindowTitle("Delete Stock")
 
         warning_text = delete.findChild(QLabel, "DeleteGroupWarningText")
