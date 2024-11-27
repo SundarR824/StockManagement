@@ -15,6 +15,10 @@ class StockGroupServices:
     def __init__(self):
         self.stock_group_repo = StockGroupRepository()
 
+    def get_stock_group_by_name(self, name: str):
+        stock_group = self.stock_group_repo.fetch_stock_group_by_name(name)
+        return stock_group
+
     def get_all_stock_groups(self):
         all_stock_group = self.stock_group_repo.fetch_all_stock_group()
 
@@ -35,7 +39,7 @@ class StockGroupServices:
         create_group = self.stock_group_repo.create_stock_group(name, desc)
 
         if not create_group:
-            return {"message": "Problem with Stock Group Creation Contact Developer", "status": 500}
+            return {"message": f"Group {name} already exist", "status": 500}
 
         return {"message": f"stock group '{name}' successfully created", "status": 200}
 

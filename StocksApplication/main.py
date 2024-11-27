@@ -1,4 +1,5 @@
 import sys
+import openpyxl
 from pathlib import Path
 from StockManager.services import StockGroupServices, StockServices
 
@@ -172,6 +173,11 @@ class MyApp(QMainWindow):
         else:
             warning_text = self.findChild(QLabel, "GroupWarningText")
             created_group = self.stock_group_services.create_stock_group(group_name, group_desc)
+            if created_group['status'] == 500:
+                warning_text.setText(created_group['message'])
+                warning_text.setStyleSheet("color: red")
+                return
+
             warning_text.setText(created_group['message'])
             warning_text.setStyleSheet("color: Blue")
 
@@ -304,6 +310,38 @@ class MyApp(QMainWindow):
         delete.accepted.connect(accept_stock_delete)
         delete.setWindowModality(Qt.ApplicationModal)
         delete.exec_()
+
+    def import_excel_data(self):
+        excel_operations = ExcelOperations()
+
+
+class ExcelOperations:
+    def __init__(self):
+        self.stock_group_services = StockGroupServices()
+        self.stock_services = StockServices()
+
+    def load_excel_data(self, excel_path):
+        excel_obj = openpyxl.load_workbook(excel_path)
+
+        for name in excel_obj.sheetnames:
+            sheet = excel_obj[name]
+
+            group_name = self.stock_group_services.get_stock_group_by_name(name)
+            if not group_name:
+                self.stock_group_services.create_stock_group(name, '')
+
+            group_name = self.stock_group_services.get_stock_group_by_name(name)
+
+            for row in sheet.iter_rows(min_row=2, values_only=True):
+                row = list(row)
+                row[1] = row[1].replace('.000 NO', '')
+
+                stock_args = self.stock_services.StockArgs(
+                    group_id=group_name.id, stock_desc='',
+                    stock_name=row[0], count=row[1], mini_count=row[2]
+                )
+
+                self.stock_services.create_stock(stock_args)
 
 
 if __name__ == "__main__":

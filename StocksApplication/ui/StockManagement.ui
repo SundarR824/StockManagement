@@ -223,6 +223,19 @@
       <string>Add Stocks </string>
      </property>
     </widget>
+    <widget class="QCommandLinkButton" name="ImportExcelButton">
+     <property name="geometry">
+      <rect>
+       <x>180</x>
+       <y>30</y>
+       <width>231</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string>Import Excel Data</string>
+     </property>
+    </widget>
    </widget>
    <widget class="QLabel" name="MainWindowWarning">
     <property name="geometry">
