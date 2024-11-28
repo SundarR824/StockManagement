@@ -9,7 +9,7 @@ from PyQt5.QtGui import QBrush, QColor
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QTableWidget, QLabel, QLineEdit, QComboBox,
     QPushButton, QTableWidgetItem, QWidget, QCommandLinkButton, QSpinBox, QDialog,
-    QTextEdit
+    QTextEdit, QFileDialog
 )
 
 
@@ -30,6 +30,10 @@ class MyApp(QMainWindow):
 
         stock_operations_button = self.findChild(QCommandLinkButton, "AddStockMenuButton")
         stock_operations_button.clicked.connect(self.add_stock_operations_page)
+
+        import_excel_data_button = self.findChild(QCommandLinkButton, "ImportExcelButton")
+        import_excel_data_button.clicked.connect(self.import_excel_data)
+
         self.setWindowTitle("Stock Management")
         self.load_stock_group_data()
 
@@ -311,9 +315,17 @@ class MyApp(QMainWindow):
         delete.setWindowModality(Qt.ApplicationModal)
         delete.exec_()
 
+    # Load Excel Data
+    # ---------------
     def import_excel_data(self):
-        excel_operations = ExcelOperations()
+        options = QFileDialog.Options()
+        file_path, _ = QFileDialog.getOpenFileName(self, "Open Excel File", "", "Excel Files (*.xls *.xlsx)", options=options)
 
+        if file_path:
+            excel_operations = ExcelOperations()
+            excel_operations.load_excel_data(file_path)
+
+        self.load_stock_group_data()
 
 class ExcelOperations:
     def __init__(self):
