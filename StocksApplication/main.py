@@ -1,16 +1,14 @@
 import sys
 import openpyxl
 from pathlib import Path
-from StockManager.services import StockGroupServices, StockServices
+from plyer import notification
 
 from PyQt5 import uic
 from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import *
 from PyQt5.QtGui import QBrush, QColor
-from PyQt5.QtWidgets import (
-    QApplication, QMainWindow, QTableWidget, QLabel, QLineEdit, QComboBox,
-    QPushButton, QTableWidgetItem, QWidget, QCommandLinkButton, QSpinBox, QDialog,
-    QTextEdit, QFileDialog
-)
+
+from StockManager.services import StockGroupServices, StockServices
 
 
 class MyApp(QMainWindow):
@@ -254,7 +252,7 @@ class MyApp(QMainWindow):
         else:
             warning_text = self.findChild(QLabel, "StockWarningText")
             stock_args = self.stock_services.StockArgs(
-                group_id=stock_group_id, stock_name=stock_name, stock_desc=stock_desc,
+                group_id=int(stock_group_id), stock_name=stock_name, stock_desc=stock_desc,
                 mini_count=stock_mini_count, count=0
             )
             created_stock = self.stock_services.create_stock(stock_args)
@@ -327,6 +325,7 @@ class MyApp(QMainWindow):
 
         self.load_stock_group_data()
 
+
 class ExcelOperations:
     def __init__(self):
         self.stock_group_services = StockGroupServices()
@@ -356,8 +355,23 @@ class ExcelOperations:
                 self.stock_services.create_stock(stock_args)
 
 
+class SendNotifications:
+    def __init__(self):
+        self.display_notification()
+
+    def display_notification(self):
+        notification.notify(
+            title="Stock Management",
+            message="You may have lower stocks in you store Kindly the application!!..",
+            timeout=10
+        )
+
+
 if __name__ == "__main__":
     app = QApplication(sys.argv)
     window = MyApp()
     window.show()
+
+    notify = SendNotifications()
+
     sys.exit(app.exec_())
